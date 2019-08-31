@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential, Model, load_model
 from PIL import Image
 import sys
 
-classes = ["car", "mortorbike"]
+classes = ["car", "motorbike"]
 num_classes = len(classes)
 image_size = 224
 
@@ -12,7 +12,6 @@ image = Image.open(sys.argv[1])
 image = image.convert("RGB")
 image = image.resize((image_size, image_size))
 data = np.asarray(image) / 255.0
-
 X = []
 X.append(data)
 X = np.array(X)

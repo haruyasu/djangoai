@@ -1,13 +1,13 @@
 import numpy as np
 from tensorflow import keras
 from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
-from tensorflow.keras.layers import Activation, Dropout, Flatten, Dense
 from tensorflow.keras.optimizers import SGD, Adam
 from tensorflow.python.keras.utils import np_utils
 from tensorflow.python.keras.applications import VGG16
 
-classes = ["car", "mortorbike"]
+classes = ["car", "motorbike"]
 num_classes = len(classes)
 image_size = 224
 
@@ -30,15 +30,13 @@ top_model.add(Dense(num_classes, activation='softmax'))
 model = Model(inputs=model.input, outputs=top_model(model.output))
 
 # model.summary()
-
 for layer in model.layers[:15]:
     layer.trainable = False
 
 opt = Adam(lr=0.0001)
-model.compile(loss='categorical_crossentropy',
-                optimizer=opt,
-                metrics=['accuracy'])
-model.fit(X_train, y_train, batch_size=32, epochs=10)
+model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+model.fit(X_train, y_train, batch_size=32, epochs=17)
+
 score = model.evaluate(X_test, y_test, batch_size=32)
 
-model.save('./vgg16_transfer.h5')
+model.save("./vgg16_transfer.h5")
