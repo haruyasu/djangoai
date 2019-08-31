@@ -1,1 +1,2 @@
-"# djangoai" 
+# Django Image recognition
+
